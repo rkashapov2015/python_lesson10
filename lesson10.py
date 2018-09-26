@@ -6,7 +6,7 @@ APP_ID = 6703198
 OAUTH_URL = 'https://oauth.vk.com/authorize'
 API_URL = 'https://api.vk.com/method/'
 VK_URL = 'https://vk.com'
-TOKEN = 'f8e341f9644fe51f928b7957ff01c22835fc1cbd9ff5ab431ad652db172abdbdba5af8daf803618841ed9'
+TOKEN = '-----------------------------------'
 
 oauth_data = {
     'client_id': APP_ID,
@@ -16,6 +16,7 @@ oauth_data = {
 }
 
 full_url = '?'.join((OAUTH_URL, urlencode(oauth_data)))
+print('Получите свой токен')
 print(full_url)
 
 
