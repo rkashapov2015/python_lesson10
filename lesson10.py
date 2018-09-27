@@ -6,7 +6,7 @@ APP_ID = 6703198
 OAUTH_URL = 'https://oauth.vk.com/authorize'
 API_URL = 'https://api.vk.com/method/'
 VK_URL = 'https://vk.com'
-TOKEN = '-----------------------------------'
+TOKEN = 'NONE'
 
 oauth_data = {
     'client_id': APP_ID,
@@ -103,13 +103,18 @@ class User:
     def __str__(self):
         return '/'.join((VK_URL, self.domain))
 
+    def show_friends(self):
+        for friend in self.friends:
+            print(friend)
+
     def get_friends(self):
         params = {
             'access_token': TOKEN,
-            'user_ids': id,
+            'user_id': self.id,
             'fields': 'domain',
             'v': '5.85'
         }
+        print(self.id)
         result = requests.get(API_URL + '/friends.get', params)
         json = result.json()
         for data in json['response']['items']:
@@ -117,19 +122,22 @@ class User:
             friend.load(data)
             self.friends.append(friend)
         
-
     def load(self, user_data):
         if type(user_data) == dict:
             for key in user_data.keys():
                 if hasattr(self, key):
                     setattr(self, key, user_data[key])
 
+if TOKEN == 'NONE':
+    print('Получите токен')
+    quit()
 
 factory = Factory()
-user1 = factory.get_user_by_id(5266654)
-user2 = factory.get_user_by_id(2889812)
+user1 = factory.get_user_by_id(6)
+user2 = factory.get_user_by_id(7)
 
 print('User1: ', user1)
+
 print('User2: ', user2)
 
 print(user1 & user2)
